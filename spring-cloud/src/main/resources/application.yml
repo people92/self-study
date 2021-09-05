@@ -1,0 +1,15 @@
+server:
+  port: 9710
+feign:
+  client:
+    config:
+      default:
+        loggerlevel: FULL
+        connectTimeout: 1
+        readTimeout: 1
+  hystrix:
+    enabled: true
+
+logging:
+  level:
+    com.study.springcloud.KakaoOpenApiClient: DEBUG
