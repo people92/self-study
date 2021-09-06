@@ -1,14 +1,15 @@
 server:
   port: 9710
 feign:
+  hystrix:
+    enabled: true
   client:
     config:
       default:
         loggerlevel: FULL
         connectTimeout: 1
         readTimeout: 1
-  hystrix:
-    enabled: true
+
 
 logging:
   level:
