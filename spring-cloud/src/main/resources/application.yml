@@ -6,11 +6,20 @@ feign:
   client:
     config:
       default:
-        loggerlevel: FULL
-        connectTimeout: 1
-        readTimeout: 1
-
-
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerlevel: BASIC
+      kakao-open-api: # FeignClient에서 name 설정값으로 준 값
+        connectTimeout: 10000
+        readTimeout: 10000
+        loggerLevel: BASIC
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000 # 요청에 대한 Timeout 설정
 logging:
   level:
     com.study.springcloud.KakaoOpenApiClient: DEBUG
