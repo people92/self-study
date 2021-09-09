@@ -10,6 +10,7 @@ feign:
         readTimeout: 10000
         loggerlevel: BASIC
       kakao-open-api: # FeignClient에서 name 설정값으로 준 값
+        errorDecoder: com.study.springcloud.KakaoFeignClientErrorDecoder
         connectTimeout: 10000
         readTimeout: 10000
         loggerLevel: BASIC

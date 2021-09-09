@@ -1,6 +1,7 @@
 package com.study.springcloud;
 
 
+import feign.RetryableException;
 import org.springframework.stereotype.Service;
 
 @Service
