@@ -20,4 +20,11 @@ public class HandlingFileTest {
         HandlingFile handlingFile = new HandlingFile();
         handlingFile.writeFile();
     }
+
+    @Test
+    public void downloadFileTest() {
+        String requestUrl = "https://raw.githubusercontent.com/people92/self-study/main/java-study/src/main/resources/json/sample.json";
+        HandlingFile handlingFile = new HandlingFile();
+        handlingFile.downloadFile(requestUrl);
+    }
 }
