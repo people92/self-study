@@ -1,5 +1,6 @@
 package com.study.springcloud;
 
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,4 +16,7 @@ public interface KakaoOpenApiClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/v2/search/web")
     ResKakaoApi searchDaumWeb(@RequestParam(name = "query") String query);
+
+    @RequestMapping(method = RequestMethod.GET, value = "/v2/search/web")
+    Response searchResponse(@RequestParam(name = "query") String query);
 }

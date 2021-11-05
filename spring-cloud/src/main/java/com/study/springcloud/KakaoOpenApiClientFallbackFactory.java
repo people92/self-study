@@ -1,5 +1,6 @@
 package com.study.springcloud;
 
+import feign.Response;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,6 +18,11 @@ public class KakaoOpenApiClientFallbackFactory implements FallbackFactory<KakaoO
             public ResKakaoApi searchDaumWeb(String query) {
                 log.error("Feign Client Error : " + cause.getMessage());
                 return ResKakaoApi.EMPTY;
+            }
+
+            @Override
+            public Response searchResponse(String query) {
+                return null;
             }
         };
     }

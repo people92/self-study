@@ -20,6 +20,9 @@ public class FeignDownloadTest {
     @Autowired
     DownloadFeignClient downloadFeignClient;
 
+    @Autowired
+    FeignService feignService;
+
     @Test
     public void downloadJsonFileTest() throws IOException {
         Response response = downloadFeignClient.downloadJsonFile();
@@ -39,5 +42,10 @@ public class FeignDownloadTest {
             inputStream.close();
             os.close();
         }
+    }
+
+    @Test
+    public void feignResponseTest() throws IOException {
+        feignService.findResponse("SSG");
     }
 }
