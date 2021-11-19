@@ -10,6 +10,7 @@ public class FeignController {
 
     private final FeignService feignService;
 
+
     public FeignController(FeignService feignService) {
         this.feignService = feignService;
     }
@@ -18,4 +19,5 @@ public class FeignController {
     public ResKakaoApi searchDaumWeb(@RequestParam(name = "query") String query) {
         return feignService.findDaumWeb(query);
     }
+
 }

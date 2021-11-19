@@ -8,12 +8,16 @@ feign:
       default:
         connectTimeout: 10000
         readTimeout: 10000
-        loggerlevel: BASIC
+        loggerlevel: FULL
       kakao-open-api: # FeignClient에서 name 설정값으로 준 값
         errorDecoder: com.study.springcloud.KakaoFeignClientErrorDecoder
         connectTimeout: 10000
         readTimeout: 10000
         loggerLevel: BASIC
+#  okhttp:
+#    enabled: true
+#  httpclient:
+#    enabled: true
 hystrix:
   command:
     default:
@@ -24,3 +28,5 @@ hystrix:
 logging:
   level:
     com.study.springcloud.KakaoOpenApiClient: DEBUG
+    com.study.springcloud.NoBodyFeignClient: DEBUG
+
