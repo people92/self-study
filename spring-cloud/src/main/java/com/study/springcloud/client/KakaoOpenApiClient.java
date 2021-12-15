@@ -1,15 +1,17 @@
-package com.study.springcloud;
+package com.study.springcloud.client;
 
+import com.study.springcloud.KakaoOpenApiClientFallbackFactory;
+import com.study.springcloud.ResKakaoApi;
+import com.study.springcloud.config.KakaoFeignConfiguration;
 import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "kakao-open-api",
+@FeignClient(name = "kakao",
         url = "https://dapi.kakao.com",
         configuration = KakaoFeignConfiguration.class,
-        //fallback = KakaoOpenApiClientFallback.class
         fallbackFactory = KakaoOpenApiClientFallbackFactory.class
         )
 public interface KakaoOpenApiClient {

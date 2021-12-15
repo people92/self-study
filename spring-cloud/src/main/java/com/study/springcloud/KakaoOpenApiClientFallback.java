@@ -1,5 +1,6 @@
 package com.study.springcloud;
 
+import com.study.springcloud.client.KakaoOpenApiClient;
 import feign.Response;
 import org.springframework.stereotype.Component;
 

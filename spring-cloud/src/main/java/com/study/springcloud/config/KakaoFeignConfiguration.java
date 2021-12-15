@@ -1,4 +1,4 @@
-package com.study.springcloud;
+package com.study.springcloud.config;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

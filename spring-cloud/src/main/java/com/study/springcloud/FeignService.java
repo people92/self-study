@@ -3,27 +3,22 @@ package com.study.springcloud;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.study.springcloud.client.KakaoOpenApiClient;
 import feign.Request;
 import feign.Response;
-import feign.RetryableException;
-import feign.Util;
 import feign.codec.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Map;
 
-@Service
+@Component
 @Slf4j
 public class FeignService {
 
-    private final KakaoOpenApiClient kakaoOpenApiClient;
+    private KakaoOpenApiClient kakaoOpenApiClient;
     private StringDecoder stringDecoder = new StringDecoder();
 
     public FeignService(KakaoOpenApiClient kakaoOpenApiClient) {

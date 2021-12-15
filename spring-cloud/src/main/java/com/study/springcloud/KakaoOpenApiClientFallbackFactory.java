@@ -1,5 +1,6 @@
 package com.study.springcloud;
 
+import com.study.springcloud.client.KakaoOpenApiClient;
 import feign.Response;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
