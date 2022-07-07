@@ -113,3 +113,36 @@ Java가 기본으로 제공하는 함수형 인터페이스
 - 해당 타입 관련 헬퍼 또는 유틸리티 메소드를 제공할때 인터페이스에 스태틱 메소드를 제공할 수 있다.
 
 
+## Stream API
+
+### Stream
+- 데이터를 담고 있는 저장소(컬렉션)이 이낟.
+- 스트림이 처리하는 데이터 소스를 변경하지 않는다.
+- 스트림으로 처리하는 데이터는 오직 한번만 처리한다.
+- 무제한 일 수도 있다.
+- 중개 오퍼레이션은 근본적으로 lazy하다.
+- 손쉽게 병렬 처리 가능
+
+### 스트림 파이프라인
+- 0 또는 다수의 중개 오퍼레이션(intermediate operation)과 한개의 종료 오퍼레이션(terminal operation)으로 구성
+- 스트림 데이터 소스는 오직 종료 오퍼레이션을 실행할 때에만 처리한다.
+### 중개 오퍼레이션(intermediate operation)
+- Stream을 리턴
+- Stateless / Stateful 오퍼레이션으로 더 상세하게 구분할 수도 있다.
+  (대부분은 Stateless지만 distinct나 sorted처럼 이전 소스 데이터를 참조해야 하는 경우는 stateful 오퍼레이션)
+- ex) filter, map, limit, skip , sorted ...
+### 종료 오퍼레이션(terminal operation)
+- Stream을 리턴하지 않음
+- ex) collect, allMatch, count, forEach, min, max ...
+
+## Optional 소개
+- 메소드에서 작업 중 특별한 상황에서 값을 제대로 리턴할수 없는 경우 선택할수 있는 방법
+  - 예외를 던진다(비싸다, 스택트레이스를 찍으니깐)
+  - null을 리턴한다(비용문제는 없지만 코드를 주의해야한다.)
+  - Optional을 리턴한다.(클라이언트에 코드에게 명시적으로 빈값일수도 있다는걸 알려주고, 빈값인 경우에 대한 처리를 강제한다.)
+- Optional : 오직 값 한개가 들어 있을수도 없을 수도 있는 컨테이너
+- 주의할 것
+  - 리턴 값으로만 쓰기를 권장(메소드 매개변수 타입, 맵의 키 타입, 인스턴스 필드 타입으로 쓰지말자)
+  - Optional을 리턴하는 메소드에서 null을 리턴하지 말자
+  - 프리미티브 타입용 Optional 따로 존재(OptionalInt, OptionalLong ...)
+  - Collection, Map, Stream, Array, Optional은 Optional로 감싸지 말 것.
