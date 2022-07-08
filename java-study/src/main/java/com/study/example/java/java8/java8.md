@@ -146,3 +146,36 @@ Java가 기본으로 제공하는 함수형 인터페이스
   - Optional을 리턴하는 메소드에서 null을 리턴하지 말자
   - 프리미티브 타입용 Optional 따로 존재(OptionalInt, OptionalLong ...)
   - Collection, Map, Stream, Array, Optional은 Optional로 감싸지 말 것.
+
+## Date/Time API
+
+
+### 자바 8에 새로운 날짜와 시간 API가 생긴 이유
+
+- 그 전까지 사용하던 java.util.Date 클래스는 mutable하기 때문에 thread safe 하지 않다.
+- 클래스 이름이 명확하지 않다. Date인데 시간까지 다룬다.
+- 버그 발생할 여지가 많다.(타입 안정성이 없고, 월이 0부터 시작..)
+- 날짜 시간 처리에 복잡한 애플리케이션에서는 보통 Joda Time을 쓰곤 했다.
+
+
+- Instant.now() : 현재 UTC(GMT)를 리턴
+- Universal Time Coordinated == Greenwich Mean Time
+- 인류용 일시를 표현하는 방법
+  - LocalDateTime.now() : 현재 시스템 Zone에 해당하는 일시를 리턴
+  - LocalDateTime.of() : 로컬의 특정 일시를 리턴
+  - ZonedDateTime.of() : 특정 Zone의 특정 일시를 리턴
+- 기간을 표현하는 방법
+  - Period / Duration : between
+- 파싱 또는 포매팅
+
+```
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        System.out.println(dateTime.format(dateTimeFormatter));
+
+        LocalDate parse = LocalDate.parse("07/15/1982", dateTimeFormatter);
+        System.out.println(parse);
+```
+- 레거시 API 지원
+  - GregorianCalendar와 Date 타입의 인스턴스를 Instant나 ZonedDateTime으로 변환가능
+  - java.util.TimeZone에서 java.time.ZoneId로 상호 변환 가능
