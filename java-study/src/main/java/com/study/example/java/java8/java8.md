@@ -179,3 +179,80 @@ Java가 기본으로 제공하는 함수형 인터페이스
 - 레거시 API 지원
   - GregorianCalendar와 Date 타입의 인스턴스를 Instant나 ZonedDateTime으로 변환가능
   - java.util.TimeZone에서 java.time.ZoneId로 상호 변환 가능
+
+## CompletableFuture : 자바 Concurrent 프로그래밍 소개
+### 자바 Concurrent 프로그래밍
+
+- Concurrent 소프트웨어 : 동시에 여러 작업을 할 수 있는 소프트웨어
+- 자바에서 지원하는 Concurrent 프로그래밍
+  - 멀티프로세싱(ProcessBuilder)
+  - 멀티쓰레드
+- 자바 멀티쓰레드 프로그래밍
+  - Thread/Runnable
+- Thread 상속
+```
+    static class MyThread extends Thread {
+        @Override
+        public void run() {
+            System.out.println("Thread : " + Thread.currentThread().getName());
+        }
+    }
+```
+- Runnable 구현 또는 람다
+```
+Thread thread = new Thread(() -> System.out.println("world : " + Thread.currentThread().getName()));
+
+```
+- 쓰레드 주요 기능
+  - sleep : 현재 쓰레드 멈춰두기
+  - interrupt : 다른 쓰레드 깨우기 / 쓰레드를 깨워서 interruptedException 발생
+  - join : 다른 쓰레드가 끝날때까지 기다린다.
+
+### Executors
+- 고수준(High-Level) Concurrency 프로그래밍
+  - 쓰레드를 만들고 관리하는 작업을 애플리케이션에서 분리
+  - 그런 기능을 Executors에게 위임
+- Executors가 하는 일
+  - 쓰레드 만들기 : 애플리케이션이 사용할 쓰레드 풀을 만들어 관리한다.
+  - 쓰레드 관리 : 쓰레드 생명 주기 관리
+  - 작업 처리 및 실행 : 쓰레드로 실행할 작업을 제공할 수 있는 API 제공
+- 주요 인터페이스
+  - Executor: execute(Runnable)
+  - ExecutorService : Executor 상속 받은 인터페이스로 Callable도 실행 할수 있으며, Executor를 종료 시키거나 여러 Callable을 동시에 실행하는 등의 기능 제공
+  - ScheduledExecutorService : ExecutorService를 상속 받은 인터페이스로 특정 시간 이후에 또는 주기적으로 작업 실행
+- ExecutorService로 작업 실행
+```
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Thread : " + Thread.currentThread().getName());
+            }
+        });
+        executorService.submit(() -> {
+            System.out.println("Thread : " + Thread.currentThread().getName());
+        });
+
+```
+
+- ExecutorService로 작업 멈추기
+```
+        executorService.shutdown(); //처리 중인 작업 기다렸다가 종료
+        executorService.shutdownNow(); // 당장 종료
+```
+
+### Callable과 Future
+- Callable : Runable과 유사하지만 작업의 결과를 받을 수 있다.
+- Future
+  - 비동기적인 작업의 현재 상태를 조회하거나 결과를 가져올 수 있다.
+- 결과 가져오기 get()
+  - 블록킹 콜
+  - 타임아웃을 설정할수 있다.
+- 작업 상태 확인 isDone() : 완료 시 true 리턴
+- 작업 취소 cancel()
+  - 취소 했으면 true 리턴
+- 여러 작업 동시에 실행 invokeAll()
+  - 동시에 실행한 작업 중에 제일 오래걸리는 작업만큼 시간이 걸림
+- 여러 작업 중에 하나라도 먼저 응답이 오면 끝내기 invokeAny()
+  - 동시에 실행 한 작업 중에 제일 짧게 걸리는 작업만큼 시간이 걸림
+  - 블록킹 콜
