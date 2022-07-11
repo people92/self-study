@@ -256,3 +256,28 @@ Thread thread = new Thread(() -> System.out.println("world : " + Thread.currentT
 - 여러 작업 중에 하나라도 먼저 응답이 오면 끝내기 invokeAny()
   - 동시에 실행 한 작업 중에 제일 짧게 걸리는 작업만큼 시간이 걸림
   - 블록킹 콜
+
+## CompletableFuture
+- 자바에서 비동기 프로그래밍을 가능케하는 인터페이스
+- Future로는 하기 어렵던 작업들
+  - Future를 외부에서 완료 시킬수 없다. 취소하거나 get()에 타임아웃을 설정할 수는 있다.
+  - 블로킹코드(get())을 사용하지 않고는 작업이 끝났을때 콜백을 실행할수 없다.
+  - 여러 Futrue를 조합 할수 없다.
+  - 예외 처리용 API를 제공하지 않는다.
+- 비동기로 작업 실행
+  - runAsync() : 리턴값이 없는 경우
+  - supplyAsync() : 리턴값이 있는 경우
+  - 원하는 Executor(쓰레드풀)을 사용해서 실행 가능(기본은 ForkJoinPool)
+- 콜백 제공
+  - thenApply(Function) : 리턴값을 받아서 다른 값으로 바꾸는 콜백
+  - thenAccept(Consumer) : 리턴값을 또 다른 작업을 처리하는 콜백(리턴없이)
+  - thenRun(Runnable) : 리턴값 받고 다른 작업을 처리하는 콜백
+  - 콜백 자체를 또 다른 쓰레드에서 실행 할 수 있다.
+- 조합
+  - thenCompose() : 두 작업이 서로 이어서 실행하도록 조합
+  - thenCombine() : 두 작업을 독립적으로 실행하도 둘다 종료 했을때 콜백 실행
+  - allOf() : 여러 작업을 모두 실행하고 모든 작업 결과에 콜백 실행
+  - anyOf() : 여러 작업 중에 가장 빨리 끝난 하나의 결과에 콜백 실행
+- 예외처리
+  - exeptionally()
+  - handle()
